@@ -35,5 +35,5 @@ jobs:
     #     npx chakra typegen src/theme.ts
     - run:
         npm run test1
-    - run:
-        # npm run test2
+    # - run:
+    #     npm run test2
