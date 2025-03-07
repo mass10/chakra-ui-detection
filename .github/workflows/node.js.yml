@@ -39,4 +39,8 @@ jobs:
     # - run:
     #     npm run test2
     - run:
-        find ./src/components/chakra -type f -ls | md5sum > ./src/components/chakra/md5sum.txt
+        find ./src/components/chakra -type f -ls | md5sum > ./src/components/chakra/md5sum.txt.ci
+        cat ./src/components/chakra/md5sum.txt
+        cat ./src/components/chakra/md5sum.txt.ci
+
+        diff -s -u ./src/components/chakra/md5sum.txt ./src/components/chakra/md5sum.txt.ci
