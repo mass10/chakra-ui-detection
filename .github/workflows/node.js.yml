@@ -30,4 +30,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - run:
-        chakra snippet add --outdir src/components/chakra --all && chakra typegen src/const/common/customSystem.ts
+        chakra snippet add --outdir src/components/chakra --all && chakra typegen src/theme.ts
