@@ -29,7 +29,11 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    # - run:
+    #     npx chakra snippet add --outdir src/components/chakra --all
+    # - run:
+    #     npx chakra typegen src/theme.ts
     - run:
-        npx chakra snippet add --outdir src/components/chakra --all
+        npm run test1
     - run:
-        npx chakra typegen src/theme.ts
+        npm run test2
