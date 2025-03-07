@@ -3,7 +3,7 @@ default:
 	# 確認
 	file src/components/chakra/md5sum.txt
 
-	find src/components/chakra -type f -ls | md5sum > src/components/chakra/md5sum.txt.ci
+	find src/components/chakra -type f -ls | grep \.tsx | md5sum > src/components/chakra/md5sum.txt.ci
 
 	# 確認
 	file src/components/chakra/md5sum.txt.ci
