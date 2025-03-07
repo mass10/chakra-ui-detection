@@ -6,6 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+  schedule:
+    - cron: "0 3,15 * * *" # every day at 3am and 3pm UTC
 
 jobs:
   build:
@@ -29,4 +31,3 @@ jobs:
     - run: npm test
     - run:
         chakra snippet add --outdir src/components/chakra --all && chakra typegen src/const/common/customSystem.ts
-
