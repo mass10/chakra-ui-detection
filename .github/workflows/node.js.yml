@@ -31,4 +31,5 @@ jobs:
     - run: npm test
     - run:
         npm chakra snippet add --outdir src/components/chakra --all
+    - run:
         npm chakra typegen src/theme.ts
