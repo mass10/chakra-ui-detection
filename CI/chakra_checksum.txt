@@ -1,4 +1,3 @@
-### START ###
 src/components/chakra/accordion.tsx, 1430, c3b9bfdceeabc61e78c3674921469900
 src/components/chakra/action-bar.tsx, 1186, 1ee62fbd0a17aca51c93a2f9f4546442
 src/components/chakra/alert.tsx, 970, 9e3286bff139630c769078a8271263dd
@@ -51,4 +50,3 @@ src/components/chakra/toaster.tsx, 1123, 8f45efd49492981daafc93e64149894e
 src/components/chakra/toggle-tip.tsx, 1844, 44e91c872ecf1feb3b808b6f59f4f766
 src/components/chakra/toggle.tsx, 1468, 0d328394839b85744c3ce3cee87d59b7
 src/components/chakra/tooltip.tsx, 1264, 3acf7e4d08af0d6044fa66f7e6257ffa
---- END ---
