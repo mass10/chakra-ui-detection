@@ -66,6 +66,12 @@ fn diagnose_files(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     return Ok(());
 }
 
+/// ディレクトリを変更
+fn chdir(path: &str) -> Result<(), Box<dyn std::error::Error>> {
+    std::env::set_current_dir(path)?;
+    return Ok(());
+}
+
 /// OS を考慮したパス結合
 fn concat_path_parts(parts: &[&str]) -> String {
     return parts.join(&std::path::MAIN_SEPARATOR.to_string());
@@ -85,12 +91,6 @@ fn execute(args: &Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
     eprintln!("[INFO] チェックサムを出力しました。");
     eprintln!("[INFO] Ok.");
 
-    return Ok(());
-}
-
-/// ディレクトリを変更
-fn chdir(path: &str) -> Result<(), Box<dyn std::error::Error>> {
-    std::env::set_current_dir(path)?;
     return Ok(());
 }
 
