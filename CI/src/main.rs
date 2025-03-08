@@ -90,5 +90,8 @@ fn main() {
         std::process::exit(1);
     }
 
+    eprintln!("チェックサムを出力しました。");
+    eprintln!("Ok.");
+
     // let result = execute_command(&["find", "src/components/chakra", "-type", "f"]);
 }
