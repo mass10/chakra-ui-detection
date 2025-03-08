@@ -25,6 +25,10 @@ fn dump_file_md5(path: &str) -> std::result::Result<String, Box<dyn std::error::
     return Ok(format!("{:x}", response));
 }
 
+fn fix_windows_path(path: &str) -> String {
+    return path.replace("\\", "/");
+}
+
 /// ファイル診断
 #[allow(unused)]
 fn diagnose_files(path: &str) -> Result<(), Box<dyn std::error::Error>> {
@@ -35,11 +39,15 @@ fn diagnose_files(path: &str) -> Result<(), Box<dyn std::error::Error>> {
         if path.is_dir() {
             continue;
         }
+        // ファイル情報
         let path_info = std::fs::metadata(&path)?;
+        // ファイルサイズ
         let length = path_info.len();
-        let written_at = path_info.modified()?;
-        let md5sum = dump_file_md5(&path.to_string_lossy())?;
-        println!("{}, {}, {}", path.to_string_lossy(), length, md5sum);
+        // パス文字列
+        let abs_path = path.to_string_lossy().to_string();
+        // MD5
+        let md5sum = dump_file_md5(&abs_path)?;
+        println!("{}, {}, {}", fix_windows_path(&abs_path), length, md5sum);
     }
 
     return Ok(());
