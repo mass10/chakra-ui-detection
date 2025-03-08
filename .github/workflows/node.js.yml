@@ -35,10 +35,10 @@ jobs:
     #     npx chakra snippet add --outdir src/components/chakra --all
     # - run:
     #     npx chakra typegen src/theme.ts
-    - run:
+    - run: |
         rm -rf ./src/components/chakra/*.tsx
         npm run test1
-    - run:
+    - run: |
         echo "=== 確認1 ==="
         cat chakra_checksum.txt
 
