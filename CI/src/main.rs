@@ -72,6 +72,7 @@ fn concat_path_parts(parts: &[&str]) -> String {
 }
 
 /// 実行
+#[allow(unused)]
 fn execute(args: &Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
     chdir("..")?;
 
