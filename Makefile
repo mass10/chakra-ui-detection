@@ -22,3 +22,5 @@ chakra_checksum:
 
 	cat chakra_checksum.txt
 	cat chakra_checksum-ci.txt
+
+	diff -s -u chakra_checksum-ci.txt chakra_checksum.txt
