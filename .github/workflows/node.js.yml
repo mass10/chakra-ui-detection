@@ -31,17 +31,19 @@ jobs:
 
     # - run: npm test
 
-    # - run:
-    #     npx chakra snippet add --outdir src/components/chakra --all
-    # - run:
-    #     npx chakra typegen src/theme.ts
-    - run: |
+    - name: chakra コンポーネント出力
+      run: |
         rm -rf ./src/components/chakra/*.tsx
-        npm run test1
-    - run: |
-        cargo run
+        npx chakra snippet add --outdir src/components/chakra --all
+        # npm run test1
+        # chakra typegen src/theme.ts",
+
+    - name: チェックサム出力 - CI
+      run: |
+        cargo run > chakra_checksum.tmp
       working-directory: CI
-    - run: |
-        cargo run > chakra_checksum-ci.txt
-        diff -s -u chakra_checksum-ci.txt chakra_checksum.txt
+
+    - name: チェックサム VERIFY
+      run: |
+        diff -s -u chakra_checksum.txt chakra_checksum.tmp
       working-directory: CI
