@@ -34,4 +34,5 @@ jobs:
     - run:
         rm -rf ./src/components/chakra/*.tsx
         npm run test1
-    - run: make
+    - run: make chakra_checksum
+      working-directory: CI
