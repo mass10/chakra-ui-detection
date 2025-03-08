@@ -149,6 +149,7 @@ fn check_checksum() -> Result<(), Box<dyn std::error::Error>> {
 	let _ = diagnose_files(&chakra_components, "chakra_checksum.tmp")?;
 
 	// 比較
+	eprintln!("[INFO] チェックサムを比較します。");
 	execute_command(&["diff", "-s", "chakra_checksum.txt", "chakra_checksum.tmp"])?;
 
 	return Ok(());
