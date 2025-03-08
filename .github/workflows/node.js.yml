@@ -34,16 +34,5 @@ jobs:
 
       - name: chakra コンポーネント出力
         run: |
-          rm -rf ./src/components/chakra/*.tsx
-          npx chakra snippet add --outdir src/components/chakra --all
-
-      - name: チェックサム出力 - CI
-        run: |
-          cargo run > chakra_checksum.tmp
-          cat chakra_checksum.tmp
-        working-directory: CI
-
-      - name: チェックサム VERIFY
-        run: |
-          diff -s -u chakra_checksum.txt chakra_checksum.tmp
+          make check
         working-directory: CI
