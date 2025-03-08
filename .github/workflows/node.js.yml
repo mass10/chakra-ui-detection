@@ -6,47 +6,46 @@ name: "Chakra UI コンポーネント出力の VERIFY"
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   schedule:
-      # every day at 3, 9, 15, and 21 UTC (JST: 12:00, 18:00, 24:00, 6:00)
-    - cron: "0 3,9,15,21 * * *" 
+    # every day at 3, 9, 15, and 21 UTC (JST: 12:00, 18:00, 24:00, 6:00)
+    - cron: "0 3,9,15,21 * * *"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Use Node.js 22.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: "22.x"
-        cache: "npm"
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: "npm"
 
-    - run: npm ci
+      - run: npm ci
 
-    # - run: npm run build --if-present
+      # - run: npm run build --if-present
 
-    # - run: npm test
+      # - run: npm test
 
-    - name: chakra コンポーネント出力
-      run: |
-        rm -rf ./src/components/chakra/*.tsx
-        npx chakra snippet add --outdir src/components/chakra --all
-        # npm run test1
-        # chakra typegen src/theme.ts",
+      - name: chakra コンポーネント出力
+        run: |
+          rm -rf ./src/components/chakra/*.tsx
+          npx chakra snippet add --outdir src/components/chakra --all
+          # npm run test1
+          # chakra typegen src/theme.ts",
 
-    - name: チェックサム出力 - CI
-      run: |
-        cargo run > chakra_checksum.tmp
-        cat chakra_checksum.tmp
-      working-directory: CI
+      - name: チェックサム出力 - CI
+        run: |
+          cargo run > chakra_checksum.tmp
+          cat chakra_checksum.tmp
+        working-directory: CI
 
-    - name: チェックサム VERIFY
-      run: |
-        diff -s -u chakra_checksum.txt chakra_checksum.tmp
-      working-directory: CI
+      - name: チェックサム VERIFY
+        run: |
+          diff -s -u chakra_checksum.txt chakra_checksum.tmp
+        working-directory: CI
