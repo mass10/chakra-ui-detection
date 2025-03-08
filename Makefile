@@ -18,9 +18,12 @@ default:
 	diff -s -u src/components/chakra/md5sum.txt src/components/chakra/md5sum.txt.ci
 
 chakra_checksum:
-	cargo run > chakra_checksum-ci.txt
-
+    echo "===== 既存のコンポーネント情報 ====="
 	cat chakra_checksum.txt
+
+    echo "===== CI 時実行時のコンポーネント情報 ====="
+	cargo run > chakra_checksum-ci.txt
 	cat chakra_checksum-ci.txt
 
+    echo "===== 差分を出力 ====="
 	diff -s -u chakra_checksum-ci.txt chakra_checksum.txt
