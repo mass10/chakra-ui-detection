@@ -18,10 +18,11 @@ mod util {
 		return Ok(());
 	}
 
-	/// ファイルの MD5 をダンプ
-	pub fn generate_md5sum(path: &str) -> std::result::Result<String, Box<dyn std::error::Error>> {
+	/// ファイルをバイナリで読み込み
+	fn read_file_binary(
+		path: &str,
+	) -> std::result::Result<std::vec::Vec<u8>, Box<dyn std::error::Error>> {
 		use std::io::Read;
-
 		// ファイルを開きます。
 		let mut file = std::fs::File::open(path)?;
 
@@ -30,6 +31,13 @@ mod util {
 
 		// ファイル全体を読み込み
 		file.read_to_end(&mut buffer)?;
+
+		return Ok(buffer);
+	}
+
+	/// ファイルの MD5 をダンプ
+	pub fn generate_md5sum(path: &str) -> std::result::Result<String, Box<dyn std::error::Error>> {
+		let buffer = read_file_binary(path)?;
 
 		// MD5 を計算
 		let response = md5::compute(buffer);
@@ -190,7 +198,7 @@ fn main() {
 
 	let result = application::execute(&args);
 	if result.is_err() {
-		println!("Error: {:?}", result.unwrap_err());
+		println!("[ERROR] {:?}", result.unwrap_err());
 		std::process::exit(1);
 	}
 }
