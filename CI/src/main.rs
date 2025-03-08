@@ -1,3 +1,8 @@
+//!
+//! バッチ処理
+//!
+
+/// コマンドを実行
 #[allow(unused)]
 fn execute_command(command: &[&str]) -> std::process::Output {
     std::process::Command::new(command[0])
@@ -25,6 +30,7 @@ fn dump_file_md5(path: &str) -> std::result::Result<String, Box<dyn std::error::
     return Ok(format!("{:x}", response));
 }
 
+/// パスの補正(出力用)
 fn fix_windows_path(path: &str) -> String {
     return path.replace("\\", "/");
 }
@@ -66,7 +72,7 @@ fn concat_path_parts(parts: &[&str]) -> String {
 }
 
 /// 実行
-fn execute() -> Result<(), Box<dyn std::error::Error>> {
+fn execute(args: &Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
     chdir("..")?;
 
     // 開始位置のパス
@@ -75,23 +81,27 @@ fn execute() -> Result<(), Box<dyn std::error::Error>> {
     // 診断
     let _files = diagnose_files(&paths)?;
 
+    eprintln!("[INFO] チェックサムを出力しました。");
+    eprintln!("[INFO] Ok.");
+
     return Ok(());
 }
 
+/// ディレクトリを変更
 fn chdir(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     std::env::set_current_dir(path)?;
     return Ok(());
 }
 
+/// Rust アプリケーションのエントリーポイント
 fn main() {
-    let result = execute();
+    let args: Vec<String> = std::env::args().skip(1).collect();
+
+    let result = execute(&args);
     if result.is_err() {
         println!("Error: {:?}", result.err());
         std::process::exit(1);
     }
-
-    eprintln!("[INFO] チェックサムを出力しました。");
-    eprintln!("[INFO] Ok.");
 
     // let result = execute_command(&["find", "src/components/chakra", "-type", "f"]);
 }
