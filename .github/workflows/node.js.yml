@@ -8,7 +8,7 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: "0 3,15 * * *" # every day at 3am and 3pm UTC
+    - cron: "0 3,9,15,21 * * *" # every day at 3am and 3pm UTC
 
 jobs:
   build:
