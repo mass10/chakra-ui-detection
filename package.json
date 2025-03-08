@@ -7,8 +7,6 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "test": "echo \"No test specified.\" && exit 0",
-    "test1": "chakra snippet add --outdir src/components/chakra --all",
-    "test2": "chakra typegen src/theme.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
