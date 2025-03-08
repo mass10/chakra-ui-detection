@@ -3,7 +3,6 @@
 //!
 
 /// コマンドを実行
-#[allow(unused)]
 fn execute_command(command: &[&str]) -> Result<(), Box<dyn std::error::Error>> {
 	let result = std::process::Command::new(command[0])
 		.args(&command[1..])
@@ -105,6 +104,7 @@ fn remove_components(path: &str) -> Result<(), Box<dyn std::error::Error>> {
 			.unwrap_or_default()
 			.to_str()
 			.unwrap_or_default();
+		// TSX ファイルのみ削除
 		if name.ends_with(".tsx") {
 			std::fs::remove_file(&path)?;
 		}
@@ -112,52 +112,64 @@ fn remove_components(path: &str) -> Result<(), Box<dyn std::error::Error>> {
 	return Ok(());
 }
 
+/// チェックサムファイルを生成
+fn generate_checksum_file() -> Result<(), Box<dyn std::error::Error>> {
+	// 開始位置のパス
+	let chakra_components = concat_path_parts(&["..", "src", "components", "chakra"]);
+
+	// 診断
+	let _ = diagnose_files(&chakra_components, "chakra_checksum.txt")?;
+
+	eprintln!("[INFO] チェックサムを出力しました。");
+	eprintln!("[INFO] Ok.");
+
+	return Ok(());
+}
+
+/// チェックサムファイルを比較
+fn check_checksum() -> Result<(), Box<dyn std::error::Error>> {
+	// 開始位置のパス
+	let chakra_components = concat_path_parts(&["..", "src", "components", "chakra"]);
+
+	// コンポーネントを消去
+	remove_components(&chakra_components)?;
+
+	// コンポーネントを出力
+	execute_command(&[
+		"npx",
+		"chakra",
+		"snippet",
+		"add",
+		"--outdir",
+		&chakra_components,
+		"--all",
+	])?;
+
+	// チェックサムを出力
+	let _ = diagnose_files(&chakra_components, "chakra_checksum.tmp")?;
+
+	// 比較
+	execute_command(&["diff", "-s", "chakra_checksum.txt", "chakra_checksum.tmp"])?;
+
+	return Ok(());
+}
+
 /// 実行
-#[allow(unused)]
 fn execute(args: &Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
 	// コマンドライン引数の解析
 	let mut options = getopts::Options::new();
 	options.optflag("g", "generate", "generate checksum file");
 	options.optflag("c", "check", "check checksum file");
-
 	let matches = options.parse(args)?;
 
 	if matches.opt_present("generate") {
-		// 開始位置のパス
-		let chakra_components = concat_path_parts(&["..", "src", "components", "chakra"]);
-
-		// 診断
-		let _ = diagnose_files(&chakra_components, "chakra_checksum.txt")?;
-
-		eprintln!("[INFO] チェックサムを出力しました。");
-		eprintln!("[INFO] Ok.");
+		// チェックサムファイルを生成
+		generate_checksum_file()?;
 	} else if matches.opt_present("check") {
-		// 開始位置のパス
-		let chakra_components = concat_path_parts(&["..", "src", "components", "chakra"]);
-
-		// コンポーネントを消去
-		eprintln!("[INFO] コンポーネントを削除します。");
-		remove_components(&chakra_components)?;
-
-		// npx chakra snippet add --outdir src/components/chakra --all
-		eprintln!("[INFO] コンポーネントを追加します。");
-		execute_command(&[
-			"npx",
-			"chakra",
-			"snippet",
-			"add",
-			"--outdir",
-			&chakra_components,
-			"--all",
-		])?;
-
-		// 診断
-		eprintln!("[INFO] チェックサムを出力します。");
-		let _files = diagnose_files(&chakra_components, "chakra_checksum.tmp")?;
-
-		// 比較
-		execute_command(&["diff", "-s", "chakra_checksum.txt", "chakra_checksum.tmp"])?;
+		// チェックサムファイルを比較
+		check_checksum()?;
 	} else {
+		// エラー
 		let error = "オプションが指定されていません。";
 		return Err(error.into());
 	}
