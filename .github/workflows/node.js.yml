@@ -40,13 +40,10 @@ jobs:
         npm run test1
     - run:
         echo "=== 確認1 ==="
-        file chakra_checksum.txt
+        cat chakra_checksum.txt
 
         echo "=== 実行 ==="
         cargo run > chakra_checksum-ci.txt
-
-        echo "=== 確認2 ==="
-        cat chakra_checksum.txt
 
         echo "=== 確認3 ==="
         cat chakra_checksum-ci.txt
