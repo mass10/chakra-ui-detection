@@ -77,8 +77,6 @@ fn chdir(path: &str) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn main() {
-    println!("### START ###");
-
     let result = execute();
     if result.is_err() {
         println!("Error: {:?}", result.err());
@@ -86,5 +84,4 @@ fn main() {
     }
 
     // let result = execute_command(&["find", "src/components/chakra", "-type", "f"]);
-    println!("--- END ---");
 }
