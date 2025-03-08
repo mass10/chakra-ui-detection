@@ -32,6 +32,7 @@ fn fix_windows_path(path: &str) -> String {
 /// ファイル診断
 #[allow(unused)]
 fn diagnose_files(path: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let mut names: Vec<String> = vec![];
     let directory = std::fs::read_dir(path)?;
     for entry in directory {
         let entry = entry?;
@@ -39,15 +40,29 @@ fn diagnose_files(path: &str) -> Result<(), Box<dyn std::error::Error>> {
         if path.is_dir() {
             continue;
         }
+        // パス文字列
+        let abs_path = path.to_string_lossy().to_string();
+        names.push(path.to_string_lossy().to_string());
+
+        // // ファイル情報
+        // let path_info = std::fs::metadata(&path)?;
+        // // ファイルサイズ
+        // let length = path_info.len();
+        // // MD5
+        // let md5sum = dump_file_md5(&abs_path)?;
+        // println!("{}, {}, {}", fix_windows_path(&abs_path), length, md5sum);
+    }
+
+    names.sort();
+    for path in &names {
+        let path_info = std::fs::metadata(&path)?;
         // ファイル情報
         let path_info = std::fs::metadata(&path)?;
         // ファイルサイズ
         let length = path_info.len();
-        // パス文字列
-        let abs_path = path.to_string_lossy().to_string();
         // MD5
-        let md5sum = dump_file_md5(&abs_path)?;
-        println!("{}, {}, {}", fix_windows_path(&abs_path), length, md5sum);
+        let md5sum = dump_file_md5(&path)?;
+        println!("{}, {}, {}", fix_windows_path(&path), length, md5sum);
     }
 
     return Ok(());
