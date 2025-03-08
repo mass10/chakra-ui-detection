@@ -41,6 +41,7 @@ jobs:
     - name: チェックサム出力 - CI
       run: |
         cargo run > chakra_checksum.tmp
+        cat chakra_checksum.tmp
       working-directory: CI
 
     - name: チェックサム VERIFY
