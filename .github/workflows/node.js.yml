@@ -36,8 +36,6 @@ jobs:
         run: |
           rm -rf ./src/components/chakra/*.tsx
           npx chakra snippet add --outdir src/components/chakra --all
-          # npm run test1
-          # chakra typegen src/theme.ts",
 
       - name: チェックサム出力 - CI
         run: |
