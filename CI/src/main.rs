@@ -2,7 +2,47 @@
 //! バッチ処理
 //!
 
+#[macro_export]
+macro_rules! info {
+	($($arg:tt)*) => ({
+		let timestamp = crate::util::get_current_timestamp_jst();
+		eprintln!("{} [info] {}", timestamp, format!($($arg)*));
+	})
+}
+
+#[macro_export]
+macro_rules! warn {
+	($($arg:tt)*) => ({
+		let timestamp = crate::util::get_current_timestamp_jst();
+		eprintln!("{} [warn] {}", timestamp, format!($($arg)*));
+	})
+}
+
+#[macro_export]
+macro_rules! error {
+	($($arg:tt)*) => ({
+		let timestamp = crate::util::get_current_timestamp_jst();
+		eprintln!("{} [error] {}", timestamp, format!($($arg)*));
+	})
+}
+
 mod util {
+
+	#[allow(unused)]
+	pub fn get_current_timestamp_utc() -> String {
+		let now = chrono::Local::now();
+		let timestamp = now.format("%Y-%m-%d %H:%M:%S%.3f").to_string();
+		return timestamp;
+	}
+
+	pub fn get_current_timestamp_jst() -> String {
+		let now = chrono::Utc::now();
+		let local_time = now + chrono::Duration::hours(9);
+		let timestamp = local_time.format("%Y-%m-%dT%H:%M:%S%.3f").to_string();
+		// +#03 -> 符号付き、最低3桁を確保する、0埋め、整数
+		let text = format!("{}{:+#03}:00", timestamp, 9);
+		return text;
+	}
 
 	/// コマンドを実行
 	pub fn execute_command(command: &[&str]) -> Result<(), Box<dyn std::error::Error>> {
@@ -59,7 +99,7 @@ mod util {
 }
 
 mod application {
-	use crate::util;
+	use crate::{info, util};
 
 	/// パスの補正(出力用)
 	fn fix_path_string(path: &str) -> String {
@@ -97,8 +137,6 @@ mod application {
 			// MD5
 			let md5sum = util::generate_md5sum(&path)?;
 
-			// println!("{}, {}, {}", fix_path_string(&path), length, md5sum);
-
 			writer.write_all(
 				format!("{}, {}, {}\n", fix_path_string(&path), length, md5sum).as_bytes(),
 			)?;
@@ -134,8 +172,8 @@ mod application {
 		// 診断
 		let _ = diagnose_files(&chakra_components, "chakra_checksum.txt")?;
 
-		eprintln!("[INFO] チェックサムを出力しました。");
-		eprintln!("[INFO] Ok.");
+		info!("チェックサムを出力しました。");
+		info!("Ok.");
 
 		return Ok(());
 	}
@@ -163,7 +201,7 @@ mod application {
 		let _ = diagnose_files(&chakra_components, "chakra_checksum.tmp")?;
 
 		// 比較
-		eprintln!("[INFO] チェックサムを比較します。");
+		info!("チェックサムを比較します。");
 		util::execute_command(&["diff", "-s", "chakra_checksum.txt", "chakra_checksum.tmp"])?;
 
 		return Ok(());
@@ -198,7 +236,7 @@ fn main() {
 
 	let result = application::execute(&args);
 	if result.is_err() {
-		println!("[ERROR] {:?}", result.unwrap_err());
+		error!("{:?}", result.unwrap_err());
 		std::process::exit(1);
 	}
 }
