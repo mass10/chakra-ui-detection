@@ -167,7 +167,7 @@ mod application {
 	/// チェックサムファイルを生成
 	fn generate_checksum_file() -> Result<(), Box<dyn std::error::Error>> {
 		// 開始位置のパス
-		let chakra_components = util::concat_path_parts(&["..", "src", "components", "chakra"]);
+		let chakra_components = detect_src_component_location();
 
 		// 診断
 		let _ = diagnose_files(&chakra_components, "chakra_checksum.txt")?;
@@ -178,10 +178,14 @@ mod application {
 		return Ok(());
 	}
 
+	fn detect_src_component_location() -> String {
+		return util::concat_path_parts(&["..", "src", "components", "chakra"]);
+	}
+
 	/// チェックサムファイルを比較
 	fn check_checksum() -> Result<(), Box<dyn std::error::Error>> {
 		// 開始位置のパス
-		let chakra_components = util::concat_path_parts(&["..", "src", "components", "chakra"]);
+		let chakra_components = detect_src_component_location();
 
 		// コンポーネントを消去
 		remove_components(&chakra_components)?;
