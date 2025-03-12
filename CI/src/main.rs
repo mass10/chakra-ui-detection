@@ -178,6 +178,7 @@ mod application {
 		return Ok(());
 	}
 
+	/// コンポーネントの場所を検出
 	fn detect_src_component_location() -> String {
 		return util::concat_path_parts(&["..", "src", "components", "chakra"]);
 	}
