@@ -26,6 +26,11 @@ macro_rules! error {
 	})
 }
 
+/// Windows かどうか
+fn is_windows() -> bool {
+	return cfg!(windows);
+}
+
 mod util {
 
 	#[allow(unused)]
@@ -52,7 +57,12 @@ mod util {
 			.stdout(std::process::Stdio::inherit())
 			.output()?;
 		if !result.status.success() {
-			let error = format!("Command failed: {}", command.join(" "));
+			let exit_code = result.status.code().unwrap_or_default();
+			let command_string = command.join(" ");
+			let error = format!(
+				"Command exited with status: {} {}",
+				exit_code, command_string
+			);
 			return Err(error.into());
 		}
 		return Ok(());
@@ -212,7 +222,23 @@ mod application {
 
 		// 比較
 		info!("チェックサムを比較します。");
-		util::execute_command(&["diff", "-s", "chakra_checksum.txt", "chakra_checksum.tmp"])?;
+
+		if crate::is_windows() {
+			util::execute_command(&[
+				"wsl.exe",
+				"diff",
+				"-s",
+				"./chakra_checksum.txt",
+				"./chakra_checksum.tmp",
+			])?;
+		} else {
+			util::execute_command(&[
+				"diff",
+				"-s",
+				"./chakra_checksum.txt",
+				"./chakra_checksum.tmp",
+			])?;
+		}
 
 		return Ok(());
 	}
