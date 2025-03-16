@@ -26,10 +26,7 @@ macro_rules! error {
 	})
 }
 
-/// Windows かどうか
-fn is_windows() -> bool {
-	return cfg!(windows);
-}
+const WIN32: bool = cfg!(windows);
 
 mod util {
 
@@ -47,6 +44,17 @@ mod util {
 		// +#03 -> 符号付き、最低3桁を確保する、0埋め、整数
 		let text = format!("{}{:+#03}:00", timestamp, 9);
 		return text;
+	}
+
+	/// コマンドを実行
+	pub fn execute_command_ex(command: &[&str]) -> Result<i32, Box<dyn std::error::Error>> {
+		let result = std::process::Command::new(command[0])
+			.args(&command[1..])
+			.stderr(std::process::Stdio::inherit())
+			.stdout(std::process::Stdio::inherit())
+			.output()?;
+		let exit_code = result.status.code().unwrap_or_default();
+		return Ok(exit_code);
 	}
 
 	/// コマンドを実行
@@ -198,6 +206,34 @@ mod application {
 		]));
 	}
 
+	fn compare_checksum_files() -> Result<(), Box<dyn std::error::Error>> {
+		info!("チェックサムを比較します。");
+
+		let exit_code = if crate::WIN32 {
+			util::execute_command_ex(&[
+				"wsl.exe",
+				"diff",
+				"-s",
+				"./chakra_checksum.txt",
+				"./chakra_checksum.tmp",
+			])?
+		} else {
+			util::execute_command_ex(&[
+				"diff",
+				"-s",
+				"./chakra_checksum.txt",
+				"./chakra_checksum.tmp",
+			])?
+		};
+
+		if exit_code != 0 {
+			let error = "チェックサムが一致しません。";
+			return Err(error.into());
+		}
+
+		return Ok(());
+	}
+
 	/// チェックサムファイルを比較
 	fn check_checksum() -> Result<(), Box<dyn std::error::Error>> {
 		// 開始位置のパス
@@ -221,24 +257,7 @@ mod application {
 		let _ = diagnose_files(&chakra_components, "chakra_checksum.tmp")?;
 
 		// 比較
-		info!("チェックサムを比較します。");
-
-		if crate::is_windows() {
-			util::execute_command(&[
-				"wsl.exe",
-				"diff",
-				"-s",
-				"./chakra_checksum.txt",
-				"./chakra_checksum.tmp",
-			])?;
-		} else {
-			util::execute_command(&[
-				"diff",
-				"-s",
-				"./chakra_checksum.txt",
-				"./chakra_checksum.tmp",
-			])?;
-		}
+		compare_checksum_files()?;
 
 		return Ok(());
 	}
