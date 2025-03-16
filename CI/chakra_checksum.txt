@@ -23,7 +23,7 @@ src/components/chakra/menu.tsx, 3170, 39deb512f505602b048898428a176a47
 src/components/chakra/native-select.tsx, 1315, cd3eddb32b027538ae294f1df1625434
 src/components/chakra/number-input.tsx, 805, b386ee3e652fd2855de8e3ae207d96b0
 src/components/chakra/pagination.tsx, 5604, 20edaa2d32a3b59fb0ef0bccdc82c48a
-src/components/chakra/password-input.tsx, 3514, 2bb01e5227a292fb76c81e7178eb03ff
+src/components/chakra/password-input.tsx, 3466, 06d50c51cef1f49178153cd0be7a3ae3
 src/components/chakra/pin-input.tsx, 926, 284233a059a65b5721cab0ecb56038c4
 src/components/chakra/popover.tsx, 1665, e90674640b2135bd00a0bc96a2f38c83
 src/components/chakra/progress-circle.tsx, 1125, c3f8a290ce510e87028840f9ba9e1052
