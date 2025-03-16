@@ -67,19 +67,14 @@ mod util {
 		if !result.status.success() {
 			let exit_code = result.status.code().unwrap_or_default();
 			let command_string = command.join(" ");
-			let error = format!(
-				"Command exited with status: {} {}",
-				exit_code, command_string
-			);
+			let error = format!("Command exited with status: {} {}", exit_code, command_string);
 			return Err(error.into());
 		}
 		return Ok(());
 	}
 
 	/// ファイルをバイナリで読み込み
-	fn read_file_binary(
-		path: &str,
-	) -> std::result::Result<std::vec::Vec<u8>, Box<dyn std::error::Error>> {
+	fn read_file_binary(path: &str) -> std::result::Result<std::vec::Vec<u8>, Box<dyn std::error::Error>> {
 		use std::io::Read;
 		// ファイルを開きます。
 		let mut file = std::fs::File::open(path)?;
@@ -155,9 +150,7 @@ mod application {
 			// MD5
 			let md5sum = util::generate_md5sum(&path)?;
 
-			writer.write_all(
-				format!("{}, {}, {}\n", fix_path_string(&path), length, md5sum).as_bytes(),
-			)?;
+			writer.write_all(format!("{}, {}, {}\n", fix_path_string(&path), length, md5sum).as_bytes())?;
 		}
 
 		return Ok(());
@@ -169,11 +162,7 @@ mod application {
 		for entry in reader {
 			let entry = entry?;
 			let path = entry.path();
-			let name = path
-				.file_name()
-				.unwrap_or_default()
-				.to_str()
-				.unwrap_or_default();
+			let name = path.file_name().unwrap_or_default().to_str().unwrap_or_default();
 			// TSX ファイルのみ削除
 			if name.ends_with(".tsx") {
 				std::fs::remove_file(&path)?;
@@ -198,12 +187,7 @@ mod application {
 
 	/// コンポーネントの場所を検出
 	fn detect_src_component_location() -> Result<String, Box<dyn std::error::Error>> {
-		return Ok(util::concat_path_parts(&[
-			"..",
-			"src",
-			"components",
-			"chakra",
-		]));
+		return Ok(util::concat_path_parts(&["..", "src", "components", "chakra"]));
 	}
 
 	fn compare_checksum_files() -> Result<(), Box<dyn std::error::Error>> {
@@ -219,13 +203,7 @@ mod application {
 				"./chakra_checksum.tmp",
 			])?
 		} else {
-			util::execute_command_ex(&[
-				"diff",
-				"-s",
-				"-w",
-				"./chakra_checksum.txt",
-				"./chakra_checksum.tmp",
-			])?
+			util::execute_command_ex(&["diff", "-s", "-w", "./chakra_checksum.txt", "./chakra_checksum.tmp"])?
 		};
 
 		if exit_code != 0 {
