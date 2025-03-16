@@ -214,6 +214,7 @@ mod application {
 				"wsl.exe",
 				"diff",
 				"-s",
+				"-w",
 				"./chakra_checksum.txt",
 				"./chakra_checksum.tmp",
 			])?
@@ -221,6 +222,7 @@ mod application {
 			util::execute_command_ex(&[
 				"diff",
 				"-s",
+				"-w",
 				"./chakra_checksum.txt",
 				"./chakra_checksum.tmp",
 			])?
