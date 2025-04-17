@@ -257,9 +257,9 @@ mod application {
 			// チェックサムファイルを比較
 			check_checksum()?;
 		} else {
-			// エラー
-			let error = "オプションが指定されていません。";
-			return Err(error.into());
+			// 使用方法を表示します。
+			eprintln!("{}", options.usage("Usage:"));
+			return Ok(());
 		}
 		return Ok(());
 	}
@@ -271,7 +271,8 @@ fn main() {
 
 	let result = application::execute(&args);
 	if result.is_err() {
-		error!("{:?}", result.unwrap_err());
+		let error = result.unwrap_err();
+		error!("{:?}", error);
 		std::process::exit(1);
 	}
 }
