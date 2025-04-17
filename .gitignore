@@ -131,3 +131,5 @@ dist
 
 
 /CI/target/
+
+/CI/*.tmp
