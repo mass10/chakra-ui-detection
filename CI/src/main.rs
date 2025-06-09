@@ -179,7 +179,9 @@ mod application {
 		// 診断
 		let _ = diagnose_files(&chakra_components, "chakra_checksum.txt")?;
 
-		info!("チェックサムを出力しました。");
+		info!(
+			"ファイルを更新しました。出力された .tsx ファイルと checksum ファイルをリポジトリーに push してください。"
+		);
 		info!("Ok.");
 
 		return Ok(());
