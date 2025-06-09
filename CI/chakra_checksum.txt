@@ -8,7 +8,7 @@ src/components/chakra/checkbox-card.tsx, 1806, 4aefb7df35c9734fdaa28eed080d63e0
 src/components/chakra/checkbox.tsx, 872, 6c2575f4585c9e6687497f2df3fa0220
 src/components/chakra/clipboard.tsx, 2666, 3bb26d6bd90d1e575a8e62e0e5ef60c3
 src/components/chakra/close-button.tsx, 508, e090bd66c2c3d15d6ef87512af2b21b5
-src/components/chakra/color-mode.tsx, 2680, a8c1fc0aeb7a524232da807235c41765
+src/components/chakra/color-mode.tsx, 2738, ded99de9382398d388d355ecbfc5e127
 src/components/chakra/color-picker.tsx, 6377, eb0c5cffd0f9a5410843ca6c4ca7ac95
 src/components/chakra/data-list.tsx, 915, 35ef3746923e05e0f2d0b179b224e498
 src/components/chakra/dialog.tsx, 1717, e8a84fabee3aad79fa6e91b5b7b4d97d
@@ -45,7 +45,7 @@ src/components/chakra/steps.tsx, 2298, cc7b2a4ce8919ad3b2549b19081fce52
 src/components/chakra/switch.tsx, 1344, cc4fb3ac9e70dec41686e31000910a75
 src/components/chakra/tag.tsx, 1005, c9c913b113b360d63649e5e1bcf84cac
 src/components/chakra/timeline.tsx, 731, af735950b1c6d24ce4799d9e5e722212
-src/components/chakra/toaster.tsx, 1123, 8f45efd49492981daafc93e64149894e
+src/components/chakra/toaster.tsx, 1117, d73c45e037ac0c5e4ce45dff4fdafa6a
 src/components/chakra/toggle-tip.tsx, 1844, 44e91c872ecf1feb3b808b6f59f4f766
 src/components/chakra/toggle.tsx, 1468, 0d328394839b85744c3ce3cee87d59b7
 src/components/chakra/tooltip.tsx, 1264, 3acf7e4d08af0d6044fa66f7e6257ffa
