@@ -20,7 +20,7 @@ src/components/chakra/hover-card.tsx, 946, 3e75caa636ee7ca652bd1d2c93061949
 src/components/chakra/input-group.tsx, 1551, aa1c29e6721a49094343efe4307b1a7d
 src/components/chakra/link-button.tsx, 425, 587fa2fa16b3032479c5e29c02fa0fa3
 src/components/chakra/menu.tsx, 3170, 39deb512f505602b048898428a176a47
-src/components/chakra/native-select.tsx, 1315, cd3eddb32b027538ae294f1df1625434
+src/components/chakra/native-select.tsx, 1325, c32452e17174c6c0d19713e8499c8a0b
 src/components/chakra/number-input.tsx, 805, b386ee3e652fd2855de8e3ae207d96b0
 src/components/chakra/pagination.tsx, 5604, 20edaa2d32a3b59fb0ef0bccdc82c48a
 src/components/chakra/password-input.tsx, 3466, 06d50c51cef1f49178153cd0be7a3ae3
