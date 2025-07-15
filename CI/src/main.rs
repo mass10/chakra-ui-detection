@@ -213,6 +213,8 @@ mod application {
 			return Err(error.into());
 		}
 
+		eprintln!("チェックサムが一致しました。code: {}", exit_code);
+
 		return Ok(());
 	}
 
