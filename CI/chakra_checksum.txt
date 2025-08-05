@@ -23,12 +23,12 @@ src/components/chakra/menu.tsx, 3170, 39deb512f505602b048898428a176a47
 src/components/chakra/native-select.tsx, 1325, c32452e17174c6c0d19713e8499c8a0b
 src/components/chakra/number-input.tsx, 805, b386ee3e652fd2855de8e3ae207d96b0
 src/components/chakra/pagination.tsx, 5604, 20edaa2d32a3b59fb0ef0bccdc82c48a
-src/components/chakra/password-input.tsx, 3740, e3190ec7b5ebb2b680bf91dca6cba43d
+src/components/chakra/password-input.tsx, 3730, c4b2fac51fa86f7fec5509c41a357f77
 src/components/chakra/pin-input.tsx, 939, 23e032508cf4a197b4f76493bf81a5b7
 src/components/chakra/popover.tsx, 1665, e90674640b2135bd00a0bc96a2f38c83
 src/components/chakra/progress-circle.tsx, 1125, c3f8a290ce510e87028840f9ba9e1052
 src/components/chakra/progress.tsx, 915, 1c2eb0a93e97b0218385a351a1545154
-src/components/chakra/prose.tsx, 5809, e3a72b4bd817ef90f2a1f913883923d6
+src/components/chakra/prose.tsx, 6865, 05a310d477a07220c9dd5400c49f6516
 src/components/chakra/provider.tsx, 342, 65fbb744527b44d06bf890ea64c16202
 src/components/chakra/qr-code.tsx, 689, 34127b5a6d4ecac6153009bdaeb1279a
 src/components/chakra/radio-card.tsx, 1750, 83aaf67ef6c6711a0e6ef5214a821464
