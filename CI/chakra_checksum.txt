@@ -45,6 +45,7 @@ src/components/chakra/stepper-input.tsx, 1452, 66beafa99a46a151772fc9efb62a28a6
 src/components/chakra/steps.tsx, 2298, cc7b2a4ce8919ad3b2549b19081fce52
 src/components/chakra/switch.tsx, 1344, cc4fb3ac9e70dec41686e31000910a75
 src/components/chakra/tag.tsx, 1005, c9c913b113b360d63649e5e1bcf84cac
+src/components/chakra/tags-input.tsx, 2459, 5392cd03e7ad12e7bad0ec44645e4070
 src/components/chakra/timeline.tsx, 731, af735950b1c6d24ce4799d9e5e722212
 src/components/chakra/toaster.tsx, 1117, d73c45e037ac0c5e4ce45dff4fdafa6a
 src/components/chakra/toggle-tip.tsx, 2145, 916d33559b3680568366b94a09c42d93
